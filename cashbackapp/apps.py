@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CashbackAppConfig(AppConfig):
+class CashbackappConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'cashback_app'
+    name = 'cashbackapp'
