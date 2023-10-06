@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>login lojista</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+
+<body>
+  <!-- partial:index.partial.html -->
+  <div class="route" id="welcome"></div>
+  <div id="app">
+    <div class="app-view">  
+      <header class="app-header">
+      <h1>LOGIN DE LOJISTA</h1>
+      Bem vindo de volta,<br/>
+      <span class="app-subheading">
+        Faça o login para continuar<br/>       
+      </span>
+      <style>
+        .mensagem {
+          margin-top: 60%;
+          margin-left: 12%;
+          }
+      </style>
+    </header>
+    
+    <!-- REDIRECIONA-FISICA -->
+    
+    <div class="redireciona-fisica">
+      <button id="login-fisica">Realizar login como Usuário</button>
+    </div>
+    
+    <div>
+      <form action="{% url 'login_pessoa_juridica' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" required  placeholder="Usuário" name="usuario">
+        <input type="password" required placeholder="Senha" name="senha" >
+        <div>
+          <input type="submit" value="Entrar" class="app-button">
+        </div>
+      </form>
+    </div>
+
+    <div class="app-register">
+      não tem uma conta? <a href="/juridica/cadastro/">cadastre-se</a>
+    </div>
+    <div class="mensagem">
+      {% if messages %}
+          <ul class="messages">
+                {% for message in messages %}
+                   <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+          </ul>
+       {% endif %}
+     </div>
+    
+
+    <script src="{% static 'js/login_jur.js' %}"></script>
+    
+  </body>
+
+  </html>
+  

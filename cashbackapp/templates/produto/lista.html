@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Produtos Cadastrados</title>
+</head>
+<body>
+    <h1>Lista de Produtos Cadastrados</h1>
+    <ul>
+        {% for produto in produtos %}
+            <li>Nome: {{ produto.codItem.Nome }}</li>
+            <li>Valor: R$ {{ produto.valor }}</li>
+            <li>Cashback: {{ produto.valCashback }} </li>
+            <li>Descrição: {{ produto.descricao }}</li>
+            <hr>
+        {% empty %}
+            <li>Nenhum produto cadastrado.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

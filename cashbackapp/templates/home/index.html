@@ -1,0 +1,604 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uback</title>
+    <!-- ATENÇÃO AOS LINKS -->
+    <link rel="stylesheet" href="{% static 'css/home_style.css' %}">
+
+    <!-- Fontes -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" 
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Boxicons -->
+
+    <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <!-- or -->
+  <link rel="stylesheet"
+    href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+
+    <!-- Carrossel -->
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+</head>
+
+<body>
+
+    <header>
+        <!-- ATENÇÃO AOS LINKS -->
+        <a href="#" class="logo"><img src="{% static 'img/logo-ubk.png' %}" alt="Logo da empresa"></a>
+
+        <ul class="navmenu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Cashback</a></li>
+            <li><a href="#" id="scroll-to-bottom">Contato</a></li>
+        </ul>
+        
+
+        <div class="nav-icon">
+            <div class="nav-icon-item">
+                <a href="#"> <i class="bx bx-search"></i> </a>
+                <a href="{% url 'login_pessoa_fisica' %}"> <i class="bx bx-user"></i> </a>
+                <a href="#"> <i class="bx bx-cart"></i> </a>
+
+                <div class="bx bx-menu" id="menu-icon"></div>
+            </div>
+
+
+        </div>
+    </header>
+
+    <section class="main-home">
+
+        <!-- ATENÇÃO AOS LINKS -->
+        <a href="#" class="banner"> <img src="{% static 'img/banner-3.png' %}" class="one" alt="Banner">  </a>
+        
+
+        <div class="main-text">
+
+            <h5>Seleção de ofertas</h5>
+            <h1>Ajude seu bolso <br> Economia é aqui</h1>
+            <p>Encontre os melhores produtos com os melhores preços</p>
+
+            <a href="#" class="main-btn">Conferir ofertas <i class='bx bx-right-arrow-alt'></i> </a>
+        </div>
+
+        <div class="down-arrow">
+            <a href="#tendencias" class="down"> <i class='bx bx-down-arrow-alt'></i> </a>
+        </div>
+    </section>
+
+    <!-- secao-produtos-tendencia -->
+    <section class="trending-product" id="trending">
+        <div class="center-text">
+            <h2>Produtos <span>que todos estão de olho</span> </h2>
+        </div>
+
+        <!-- lista dos produtos -->
+        <!-- ATENÇÃO AOS LINKS -->
+
+        <div class="products">
+            <div class="row">
+
+                <img src="{% static 'img/1.jpg' %}" alt="iPhone 15 Pro Max">
+                <div class="product-text">
+                    <h5>Novo</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>iPhone 15 Pro Max</h4>
+                <p>R$7830.90 - R$12.340.80</p>
+            </div>
+
+            </div>
+
+
+            <div class="row">
+                <img src="{% static 'img/2.jpg' %}" alt="Playstation 5">
+                <div class="product-text">
+                    
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Console Playstation 5 830Gb</h4>
+                <p>R$3.743,10 - R$4.999.90</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="{% static 'img/3.jpg' %}" alt="Nintendo Switch Oled">
+                <div class="product-text">
+                    <h5>UBK INDICA</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Console Nintendo Switch Oled 64Gb</h4>
+                <p>R$2.069,99 - R$2.890,80</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="{% static 'img/4.jpg' %}" alt="TV Samsung">
+                <div class="product-text">
+                    <h5>ubk indica</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Smart TV LED 50" Samsung</h4>
+                <p>R$2.109,64 - R$2.699,00</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="{% static 'img/5.jpg' %}" alt="Macbook Air">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Apple Macbook Air M1 256Gb</h4>
+                <p>R$5.480,00 - R$8.999,00</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="{% static 'img/6.jpg' %}" alt="iPad Pro">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>iPad Pro 6ª Geração 256Gb</h4>
+                <p>R$7.550,00 - R$14.340.80</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="{% static 'img/7.jpg' %}" alt="Monitor Samsung">
+                <div class="product-text">
+                    
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Monitor Gamer QLED 34" Samsung Odyssey G8</h4>
+                <p>R$9.899,99 - R$11.398.86</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="{% static 'img/8.jpg' %}" alt="Caixa de som JBL">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Caixa de Som JBL Boombox 3</h4>
+                <p>R$2.114,99 - R$3.704,90</p>
+            </div>
+            
+            </div>
+
+
+        </div>
+
+        <!-- <div class="product-carousel" id="product-carousel">
+
+            <div class="row">
+                <img src="img/1.jpg" alt="iPhone 15 Pro Max">
+                <div class="product-text">
+                    <h5>Novo</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>iPhone 15 Pro Max</h4>
+                <p>R$7830.90 - R$12.340.80</p>
+            </div>
+
+            </div>
+
+
+            <div class="row">
+                <img src="img/2.jpg" alt="Playstation 5">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Console Playstation 5 830Gb</h4>
+                <p>R$3.743,10 - R$4.999.90</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="img/3.jpg" alt="Nintendo Switch Oled">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Console Nintendo Switch Oled 64Gb</h4>
+                <p>R$2.069,99 - R$2.890,80</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="img/4.jpg" alt="TV Samsung">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Smart TV LED 50" Samsung</h4>
+                <p>R$2.109,64 - R$2.699,00</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="img/5.jpg" alt="Macbook Air">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Apple Macbook Air M1 256Gb</h4>
+                <p>R$5.480,00 - R$8.999,00</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="img/6.jpg" alt="iPad Pro">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>iPad Pro 6ª Geração 256Gb</h4>
+                <p>R$7.550,00 - R$14.340.80</p>
+            </div>
+            
+            </div>
+
+
+            <div class="row">
+                <img src="img/7.jpg" alt="Monitor Samsung">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Monitor Gamer QLED 34" Samsung Odyssey G8</h4>
+                <p>R$9.899,99 - R$11.398.86</p>
+            </div>
+            
+            </div>
+
+            <div class="row">
+                <img src="img/8.jpg" alt="Caixa de som JBL">
+                <div class="product-text">
+                    <h5>Oferta</h5>
+               </div>
+
+               <div class="heart-icon">
+                <i class='bx bx-heart'></i> 
+            </div>
+
+            <div class="ratting">
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bx-star"></i>
+                <i class="bx bxs-star-half"></i>
+            </div>
+
+            <div class="price">
+                <h4>Caixa de Som JBL Boombox 3</h4>
+                <p>R$2.114,99 - R$3.704,90</p>
+            </div>
+            
+            </div>
+
+        </div> -->
+
+    </section>
+
+
+
+    <!-- Seção-Review-Cliente -->
+
+    <section class="client-reviews">
+        <div class="reviews">
+            <h3>Review dos Clientes</h3>
+            <img src="{% static 'img/team-1.png' %}" alt="Cliente top">
+            <p>A experiência de compras no UBack tem sido simplesmente incrível. Este e-commerce realmente se destaca quando se trata de oferecer as melhores ofertas e um programa de cashback generoso. Não poderia estar mais satisfeito com minha escolha de fazer compras aqui.
+                O UBack tornou minha jornada de compras mais emocionante do que nunca, pois sempre encontro produtos incríveis a preços surpreendentes. A variedade de produtos disponíveis é impressionante, e é difícil resistir às ofertas tentadoras que eles apresentam regularmente.
+                O que realmente me impressionou foi o programa de cashback. Não só ganho dinheiro de volta em cada compra, mas o valor oferecido é substancial, o que torna a economia ainda mais significativa. É ótimo poder gastar com o que quiser, sabendo que estou sendo recompensado por isso.
+                A navegação no site é intuitiva, o processo de compra é rápido e eficiente, e a entrega é sempre pontual. Além disso, o atendimento ao cliente é amigável e prestativo, o que proporciona tranquilidade.
+            </p>
+
+                <h2>Robério Guilherme</h2>
+                <h5>Aluno da UESPI</h5>
+
+        </div>
+    </section>
+
+
+    <!-- SEÇÃO-CONTATOS -->
+
+    <section class="contact">
+        <div class="contact-info">
+            <div class="first-info">
+                <img src="{% static 'img/logo-ubk.png' %}" alt="Logo da empresa">
+
+                <p>Rua Espírito Santo, 389, <br> Acarape, Teresina - Pi, 64002-223</p>
+                <p>+55 86 98812-3456</p>
+                <p>engenhariadsoft@aluno.uespi.br</p>
+
+                <div class="social-icon">
+                    <a href="#"> <i class='bx bxl-facebook'></i> </a>
+                    <a href="#"> <i class='bx bxl-twitter'></i> </a>
+                    <a href="#"> <i class='bx bxl-instagram'></i> </a>
+                    <a href="#"> <i class='bx bxl-tiktok'></i> </a>
+                </div>
+            </div>
+
+            <div class="second-info">
+                <h4>Suporte</h4>
+                <p>Contatar Suporte</p>
+                <p>Sobre a Uback</p>
+                <p>Guia do Usuário</p>
+                <p>Compras e Estornos</p>
+                <p>Sua Privacidade</p>
+            </div>
+
+            <div class="third-info">
+                <h4>Destaques</h4>
+                <p>Smartphones</p>
+                <p>Notebooks</p>
+                <p>TVs</p>
+                <p>Cupons</p>
+                <p>Cashback</p>
+            </div>
+
+            <div class="fourth-info">
+                <h4>Uback</h4>
+                <p>Blog</p>
+                <p>Trabalhe conosco</p>
+                <p>Imprensa</p>
+                <p>Visão e Valores</p>
+                <p>Tornar-se afiliado</p>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="end-text">
+        <p>Copyright © @2023. Todos os direitos reservaods. Uback.</p>
+    </div>
+
+
+
+
+    <script src="{% static 'js/java.js' %}"></script>
+
+        
+
+
+</body>
+    
+</html>
