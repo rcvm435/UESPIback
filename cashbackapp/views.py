@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .models import Fisica, Pessoa, Juridica, Produtos, Item
 from django.contrib import messages
+from rolepermissions.roles import assign_role
+from rolepermissions.decorators import has_role_decorator
 
 
 def home(request):
@@ -44,6 +46,7 @@ def cadastro_pessoa_fisica(request):
             nova_fisica.save()
             user = User.objects.create_user(username=usuario, password=password)
             user.save()
+            assign_role(user, 'cliente')
             
             messages.error(request, 'Usuário cadastrado com sucesso')
             return redirect("cadastro_pessoa_fisica")
@@ -96,6 +99,7 @@ def cadastro_pessoa_juridica(request):
             nova_juridica.save()
             user = User.objects.create_user(username=usuario, password=password)
             user.save()
+            assign_role(user, 'lojista')
 
         
         return redirect("cadastro_Produto")
@@ -118,7 +122,7 @@ def login_pessoa_juridica(request):
             return redirect("login_pessoa_juridica")
             
     
-
+@has_role_decorator('lojista')
 def cadastro_Produto(request):
     if request.method == "GET":
         return render(request, 'produto/cadastro.html')
@@ -150,15 +154,20 @@ def cadastro_Produto(request):
             return redirect("cadastro_Produto")
             
         
-        
+@has_role_decorator('lojista')        
 def listar_produtos(request):
     produtos = Produtos.objects.all()  # Recupera todos os produtos cadastrados
     return render(request, 'produto/lista.html', {'produtos': produtos})
     
-    
-        
 
+def criar(request):
+    user = User.objects.create_user(username="rafa", password="1234")
+    user.save()
+    assign_role(user, 'lojista')
+    return HttpResponse('show')
 
+def carrinho_home(request):
+    return render(request, 'home/carrinho.html')
 
 
 

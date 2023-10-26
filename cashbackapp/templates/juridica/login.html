@@ -22,9 +22,27 @@
       </span>
       <style>
         .mensagem {
-          margin-top: 60%;
+          margin-top: 50%;
           margin-left: 12%;
           }
+
+          .redireciona-fisica {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#login-fisica {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#login-fisica:hover {
+  background-color: #2980b9;
+}
       </style>
     </header>
     
@@ -34,12 +52,12 @@
       <button id="login-fisica">Realizar login como Usuário</button>
     </div>
     
-    <div>
+    <div>   
       <form action="{% url 'login_pessoa_juridica' %}" method="POST">
         {% csrf_token %}
-        <input type="text" required  placeholder="Usuário" name="usuario">
-        <input type="password" required placeholder="Senha" name="senha" >
-        <div>
+            <input type="text" required  placeholder="Usuário" name="usuario">
+            <input type="password" required placeholder="Senha" name="senha" >
+            <div>
           <input type="submit" value="Entrar" class="app-button">
         </div>
       </form>

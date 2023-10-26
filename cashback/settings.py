@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cashbackapp',
+    'rolepermissions'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,4 @@ STATICFILES_DIRS = (
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
+ROLEPERMISSIONS_MODULE = "cashback.roles"
