@@ -18,8 +18,13 @@ urlpatterns = [
     path('fisica/profile/', views.profile_pessoa_fisica, name='perfil_pessoa_fisica'),
     path('juridica/profile/', views.profile_pessoa_juridica, name='perfil_pessoa_juridica'),
     path('produto/lista/', views.listar_produtos, name='listar_produtos'),
-    path('home/carrinho/', views.carrinho_home, name='carrinho_home'),
 
+    path('juridica/dashboard/', views.dashboard_pessoa_juridica, name='dashboard_pessoa_juridica'),
+    path('juridica/dashboard/pedidos', views.pedidos_pessoa_juridica, name='pedidos_pessoa_juridica'),
+    
+    path('fisica/<int:numero>/dashboard/', views.dashboard_pessoa_fisica, name='dashboard_pessoa_fisica'),
+    path('fisica/dashboard/cashback', views.dashboard_cashback, name='dashboard_cashback'),
+    path('fisica/dashboard/pedidos', views.pedidos_pessoa_fisica, name='pedidos_pessoa_fisica'),
 
     path('usuario/', views.criar)
 
