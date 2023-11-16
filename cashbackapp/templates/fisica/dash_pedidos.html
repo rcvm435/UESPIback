@@ -41,11 +41,11 @@
             </div>
 
                 <div class="sidebar">
-                    <a href="{% url 'dashboard_pessoa_fisica' %}">
+                    <a href="{% url 'dashboard_pessoa_fisica' fisica.codPF %}">
                         <span class="material-symbols-outlined">dashboard</span>
                         <h3>Dashboard</h3>
                     </a>
-                    <a href="{% url 'pedidos_pessoa_fisica' %}" class="active">
+                    <a href="{% url 'pedidos_pessoa_fisica' fisica.codPF %}" class="active">
                         <span class="material-symbols-outlined">receipt_long</span>
                         <h3>Pedidos</h3>
                     </a>
@@ -175,7 +175,7 @@
                 </div>
                 <div class="profile">
                     <div class="info">
-                        <p>Olá, <b>Rafael Vaz</b></p>
+                        <p>Olá, <b>usuario</b></p>
                         <small class="text-muted">Cliente Ouro</small>
                     </div>
                     <div class="profile-photo">

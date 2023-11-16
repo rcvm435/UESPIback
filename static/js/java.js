@@ -1,3 +1,5 @@
+// PÁGINA JAVASCRIPT PARA A HOME
+
 const header = document.querySelector("header");
 
 window.addEventListener ("scroll", function(){
@@ -19,5 +21,7 @@ document.getElementById("scroll-to-bottom").addEventListener("click", function(e
     // Role a página para o final
     window.scrollTo(0, document.body.scrollHeight);
 });
+
+
 
 

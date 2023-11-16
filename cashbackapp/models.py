@@ -29,12 +29,13 @@ class Produtos(models.Model):
     codPJ = models.ForeignKey(Juridica, on_delete=models.CASCADE)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
     valCashback = models.DecimalField(max_digits=10, decimal_places=2)
-    perAtivac = models.CharField(max_length=45)
+    perPendentec = models.CharField(max_length=45)
     descricao = models.CharField(max_length=100, null=True)
 
 class Carrinho(models.Model):
     codCarrinho = models.AutoField(primary_key=True)
     codPF = models.ForeignKey(Fisica, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, default='Em aberto', choices=[('Em aberto', 'Em aberto'), ('Concluido', 'Concluido')])
     
 class Compra(models.Model):
     codCompra = models.CharField(primary_key=True, max_length=45)
@@ -42,6 +43,7 @@ class Compra(models.Model):
     data = models.DateField()
     formaPag = models.CharField(max_length=45)
     valor = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, default='Pendente', choices=[('Pendente', 'Pendente'), ('Enviado', 'Enviado'), ('Cancelado', 'Cancelado')])
 
 class Transacao(models.Model):
     codTransac = models.AutoField(primary_key=True)

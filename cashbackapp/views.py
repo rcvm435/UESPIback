@@ -1,40 +1,112 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-from .models import Fisica, Pessoa, Juridica, Produtos, Item
+from django.contrib.auth import authenticate, login, logout
+from .models import Fisica, Pessoa, Juridica, Produtos, Item, Transacao
 from django.contrib import messages
 from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_role_decorator
 from .models import Carrinho, Produtos, Compra, Itens
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
+from django.urls import reverse
+from django.db.models import Sum
+from django.views.decorators.csrf import csrf_exempt
 
 
+def logout_view(request):
+    logout(request)
+    return redirect("home")
 
 def home(request):
     return render(request, 'home/index.html')
 
-def dashboard_pessoa_juridica(request):
-    return render(request, 'juridica/dashboard.html')
+def dashboard_pessoa_juridica(request, numero):
+        juridica = Juridica.objects.get(codPJ=numero)
 
-def dashboard_pessoa_fisica(request):
-    return render(request, 'fisica/dashboard.html')
+        total_compras = Transacao.objects.filter(codPJ=numero).aggregate(Sum('codCompra__valor'))
+        total=total_compras['codCompra__valor__sum'] or 0
+
+        return render(request, 'juridica/dashboard.html',{'total_vendas':total, 'juridica': juridica})
+
+def dashboard_pessoa_fisica(request, numero):
+    fisica = Fisica.objects.select_related('codPessoa').get(codPF=numero)
+    carrinho = Carrinho.objects.prefetch_related('itens_set').filter(codPF=numero, status='Em aberto')
+    if not carrinho: 
+        carrinho = Carrinho()
+        carrinho.codPF=fisica
+        carrinho.save()
+
+    return render(request, 'fisica/dashboard.html',{'fisica':fisica, 'carrinho':carrinho })
 
 def dashboard_cashback(request):
     return render(request, 'fisica/dash_cashback.html')
 
-def pedidos_pessoa_juridica(request):
-    return render(request, 'juridica/dash_pedidos.html')
+def dashboard_produtos(request):
+    return render(request, 'juridica/dash_produtos.html')
 
-def pedidos_pessoa_fisica(request):
-    return render(request, 'fisica/dash_pedidos.html')
+def pedidos_pessoa_juridica(request, numero):
+    pedidos = Produtos.objects.filter(codPJ_id=numero,)
+    juridica = Juridica.objects.get(codPJ=numero)
+    return render(request, 'juridica/dash_pedidos.html',{'pedidos':pedidos, 'juridica': juridica})
+
+def pedidos_pessoa_fisica(request, numero):
+    pedidos = Carrinho.objects.filter(codPF_id=numero, status= 'Concluido')
+    fisica = Fisica.objects.get(codPF=numero)
+    return render(request, 'fisica/dash_pedidos.html',{'pedidos':pedidos,'fisica':fisica})
 
 def profile_pessoa_fisica(request):
     return render(request, 'juridica/profile.html')   
 
 def profile_pessoa_juridica(request):
     return render(request, 'fisica/profile.html')   
+
+def produtos_all(request):
+    return render(request, 'produto/product_page.html')
+
+
+
+def produtos_details_iphone(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=12).order_by('valCashback')
+    return render(request, 'produto/product_details_ip.html', {'produto': produto})
+
+def produtos_details_jbl(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=15).order_by('valCashback')
+    return render(request, 'produto/product_details_jbl.html', {'produto': produto})     
+
+def produtos_details_ps5(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=8).order_by('valCashback')
+    return render(request, 'produto/product_details_ps5.html', {'produto': produto})   
+
+def produtos_details_switch(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=16).order_by('valCashback')
+    return render(request, 'produto/product_details_switch.html', {'produto': produto})  
+
+def produtos_details_tvs(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=17).order_by('valCashback')
+    return render(request, 'produto/product_details_tvs.html', {'produto': produto})  
+
+def produtos_details_macbook(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=18).order_by('valCashback')
+    return render(request, 'produto/product_details_mac.html', {'produto': produto})  
+
+def produtos_details_ipad(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=19).order_by('valCashback')
+    return render(request, 'produto/product_details_ipad.html', {'produto': produto})  
+
+def produtos_details_monitor(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=9).order_by('valCashback')
+    return render(request, 'produto/product_details_moni.html', {'produto': produto})  
+
+def produtos_details_note(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=13).order_by('valCashback')
+    return render(request, 'produto/product_details_note.html', {'produto': produto})  
+
+def produtos_details_sam(request):
+    produto=Produtos.objects.select_related('codPJ__codPessoa', 'codItem').filter(codItem_id=10).order_by('valCashback')
+    return render(request, 'produto/product_details_sam.html', {'produto': produto}) 
+
+
 
 def cadastro_pessoa_fisica(request):
     if request.method == "GET":
@@ -66,10 +138,12 @@ def cadastro_pessoa_fisica(request):
             user = User.objects.create_user(username=usuario, password=password)
             user.save()
             assign_role(user, 'cliente')
+            login(request,user)
+
             
             messages.error(request, 'Usuário cadastrado com sucesso')
-            return redirect("cadastro_pessoa_fisica")
-        # return HttpResponse('Usuário cadastrado com sucesso')
+            return redirect(reverse("dashboard_pessoa_fisica",kwargs={'numero':nova_fisica.codPF}))
+       
 
 
 def login_pessoa_fisica(request):
@@ -82,8 +156,9 @@ def login_pessoa_fisica(request):
         user = authenticate(username = username , password=senha)
         if user:
             login(request,user)
+            fisica = Fisica.objects.get(usuario=username)
             # messages.error(request, 'usuário logado')
-            return redirect("home")
+            return redirect(reverse("dashboard_pessoa_fisica",kwargs={'numero':fisica.codPF}))
         else:
             messages.error(request, 'usuário não encontrado')
             return redirect("login_pessoa_fisica")
@@ -121,7 +196,7 @@ def cadastro_pessoa_juridica(request):
             assign_role(user, 'lojista')
 
         
-        return redirect("dashboard_pessoa_juridica")
+        return redirect(reverse("dashboard_pessoa_juridica",kwargs={'numero':nova_juridica.codPJ}))
     
 
 def login_pessoa_juridica(request):
@@ -134,7 +209,9 @@ def login_pessoa_juridica(request):
         user = authenticate(username = username , password=senha)
         if user:
             login(request,user)
-            return redirect("dashboard_pessoa_juridica")
+            juridica=Juridica.objects.get(usuario=username)
+            return redirect(reverse("dashboard_pessoa_juridica",kwargs={'numero':juridica.codPJ}))
+    
         else:
             
             messages.error(request, 'usuário não encontrado.')
@@ -144,38 +221,41 @@ def login_pessoa_juridica(request):
 @has_role_decorator('lojista')
 def cadastro_Produto(request):
     if request.method == "GET":
-        return render(request, 'produto/cadastro.html')
+        itens = Item.objects.all()
+        return render(request, 'produto/cadastro.html',{'itens':itens})
     else:
-        novo_item = Item()
         nome = request.POST.get('Nome')
         
         novo_produto = Produtos()
         novo_produto.valor = request.POST.get('valor')
         novo_produto.valCashback = request.POST.get('valCashback')
         novo_produto.descricao = request.POST.get('descricao')
+        item_id = request.POST.get('codItem')
+        item = Item.objects.get(codItem = item_id)
+
+        novo_produto.codItem = item
+                            
 
         pessoa_user = request.user.username
         pj = Juridica.objects.get(usuario = pessoa_user)
         
-        item = Item.objects.filter(Nome = nome).first()
-
-        if item: 
-            messages.error(request, 'Produto já cadastrado.')
+        produto_PJ = Produtos.objects.filter(codPJ_id = pj.codPJ, codItem_id = item.codItem)
+        if produto_PJ:
+            messages.error(request, 'produto ja cadastrado.')
             return redirect("cadastro_Produto")
-        else:
-            novo_item.Nome = nome
-            novo_produto.codItem = novo_item
+        else: 
             novo_produto.codPJ = pj
-            novo_item.save()
             novo_produto.save()
-           
-            messages.error(request, 'Produto foi cadastrado.')
-            return redirect("cadastro_Produto")
+            return redirect(reverse("dashboard_pessoa_juridica",kwargs={'numero':pj.codPJ}))
+
+
+                
             
+         
         
 @has_role_decorator('lojista')        
-def listar_produtos(request):
-    produtos = Produtos.objects.all()  # Recupera todos os produtos cadastrados
+def listar_produtos(request, numero):
+    produtos = Produtos.objects.filter(codPJ_id=numero)  
     return render(request, 'produto/lista.html', {'produtos': produtos})
     
 
@@ -186,40 +266,44 @@ def criar(request):
     return HttpResponse('show')
 
 
-def adicionar_produto_ao_carrinho(request, produto_id):
+def adicionar_produto_ao_carrinho(request, numero):
+    usuario_pf = request.user
+    print(usuario_pf)
+    fisica=Fisica.objects.get(usuario=usuario_pf)
+    carrinho = Carrinho.objects.prefetch_related('itens_set').get(codPF=fisica.codPF, status='Em aberto')
+    if not carrinho: 
+        carrinho = Carrinho()
+        carrinho.codPF=fisica
+        carrinho.save()
 
-    produto = get_object_or_404(Produtos, pk=produto_id)
+    produto = Produtos.objects.select_related('codItem').get(id=numero)
+    itens=Itens()
+    itens.codItem= produto
+    itens.codCarrinho=carrinho
+    itens.save()
     
-    # Supondo que o usuário é uma pessoa física (PF) logada
-    usuario_pf = request.user.fisica
-
-    # Obtendo o carrinho do usuário PF ou criando um novo se não existir
-    carrinho, created = Carrinho.objects.get_or_create(codPF=usuario_pf)
-
-    # Adicionando o produto ao carrinho
-    item_carrinho, created = Itens.objects.get_or_create(codCarrinho=carrinho, codItem=produto)
-    
-    return render(request, 'carrinho.html', {'carrinho': carrinho})
+    return render(request, 'produtos_all', {'carrinho': carrinho})
 
 def finalizar_compra(request):
-    # Supondo que o usuário é uma pessoa física (PF) logada
-    usuario_pf = request.user.fisica
+    usuario_pf = request.user.username
+    fisica=Fisica.objects.get(usuario=usuario_pf)
+    carrinho = Carrinho.objects.prefetch_related('itens_set').filter(codPF=fisica.codPF, status='Em aberto')
+    
+    nova_compra = Compra()
+    nova_compra.codCarrinho=carrinho
+    nova_compra.data= timezone.now()
+    nova_compra.formaPag='Cartão'
+   
+   
 
-    # Obtendo o carrinho do usuário PF
-    carrinho = Carrinho.objects.get(codPF=usuario_pf)
-
-    # Criando uma nova compra
-    nova_compra = Compra(codCarrinho=carrinho, data=timezone.now(), formaPag='Cartão', valor=0)
-    nova_compra.save()
-
-    # Calculando o valor total da compra
+   
     itens_carrinho = Itens.objects.filter(codCarrinho=carrinho)
-    valor_total = sum(item.codItem.valor for item in itens_carrinho)
+    valor_total = sum(item.codItem.produtos_set.first.valor for item in itens_carrinho)
     nova_compra.valor = valor_total
     nova_compra.save()
+    carrinho.status='Concluido'
+    carrinho.save()
 
-    # Limpando o carrinho
-    carrinho.itens_set.all().delete()
 
     return render(request, '', {'compra': nova_compra})
 

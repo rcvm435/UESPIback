@@ -72,6 +72,15 @@
             <div class="form-group">
                 <input type="text"  placeholder="descrição" name="descricao" required>
             </div>
+            <label for="codItem">Escolha o Item:</label>
+                <select id="codItem" name="codItem">
+                    <option selected disabled value="">selecione</option>
+                    {% for item in itens %}
+                        <option value="{{ item.codItem }}">{{ item.Nome }}</option>
+                    {% endfor %}
+                </select> 
+            <br>
+            </br>
             <div class="form-group">
                 <input type="submit" value="Cadastrar Produto">
             </div>

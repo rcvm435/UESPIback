@@ -38,7 +38,7 @@
             </div>
 
                 <div class="sidebar">
-                    <a href="{% url 'dashboard_pessoa_juridica' %}">
+                    <a href="{% url 'dashboard_pessoa_juridica' juridica.codPJ %}">
                         <span class="material-symbols-outlined">dashboard</span>
                         <h3>Dashboard</h3>
                     </a>
@@ -46,7 +46,7 @@
                         <span class="material-symbols-outlined">person</span>
                         <h3>Clientes</h3>
                     </a>
-                    <a href="{% url 'pedidos_pessoa_juridica' %}" class="active">
+                    <a href="{% url 'pedidos_pessoa_juridica' juridica.codPJ %}" class="active">
                         <span class="material-symbols-outlined">receipt_long</span>
                         <h3>Pedidos</h3>
                     </a>
@@ -59,7 +59,7 @@
                         <h3>Mensagens</h3>
                         <span class="message-count">26</span>
                     </a>
-                    <a href="#">
+                    <a href="{% url 'dashboard_produtos' %}">
                         <span class="material-symbols-outlined">inventory</span>
                         <h3>Produtos</h3>
                     </a>
@@ -123,7 +123,7 @@
                 </div>
                 <div class="profile">
                     <div class="info">
-                        <p>Olá, <b>Eduardo</b></p>
+                        <p>Olá, <b>logista</b></p>
                         <small class="text-muted">Empresário</small>
                     </div>
                     <div class="profile-photo">

@@ -29,7 +29,7 @@
     <div class="container">
         <aside>
             <div class="top">
-                <div class="logo">
+                <div  class="logo">
                     <img src="{% static 'img/logo-ubk.png' %}" alt="Logo da empresa">
                 </div>
                 <div class="close" id="close-btn">
@@ -38,15 +38,15 @@
             </div>
 
                 <div class="sidebar">
-                    <a href="{% url 'dashboard_pessoa_fisica' %}" class="active">
+                    <a href="{% url 'dashboard_pessoa_fisica' fisica.codPF %}" class="active">
                         <span class="material-symbols-outlined">dashboard</span>
                         <h3>Dashboard</h3>
                     </a>
-                    <a href="{% url 'pedidos_pessoa_fisica' %}">
+                    <a href="{% url 'pedidos_pessoa_fisica' fisica.codPF %}">
                         <span class="material-symbols-outlined">receipt_long</span>
                         <h3>Pedidos</h3>
                     </a>
-                    <a href="{% url 'dashboard_cashback' %}">
+                    <a href="{% url 'dashboard_cashback'  %}">
                         <span class="material-symbols-outlined">attach_money</span>
                         <h3>Cashback</h3>
                     </a>
@@ -67,7 +67,7 @@
                         <span class="material-symbols-outlined">support_agent</span>
                         <h3>Ajuda</h3>
                     </a>
-                    <a href="#">
+                    <a href="{%url 'logout'%}">
                         <span class="material-symbols-outlined">logout</span>
                         <h3>Logout</h3>
                     </a>
@@ -158,7 +158,7 @@
                    
                 </tbody>
             </table>
-            <a href="{% url 'pedidos_pessoa_fisica' %}">Mostrar tudo</a>
+            <a href="{% url 'pedidos_pessoa_fisica' fisica.codPF %}">Mostrar tudo</a>
 
         </div>
         </main>
@@ -176,7 +176,7 @@
                 </div>
                 <div class="profile">
                     <div class="info">
-                        <p>Olá, <b>Rafael Vaz</b></p>
+                        <p>Olá, <b>usuario</b></p>
                         <small class="text-muted">Cliente Ouro</small>
                     </div>
                     <div class="profile-photo">
